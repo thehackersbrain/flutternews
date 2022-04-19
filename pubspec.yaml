@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   cached_network_image: ^3.2.0
+  webview_flutter: ^3.0.2
+  font_awesome_flutter: ^10.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -85,5 +87,12 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+fonts:
+  - family: Poppins
+    fonts:
+      - asset: fonts/Poppins.ttf
+  - family: Montserrat
+    fonts:
+      - asset: fonts/Montserrat.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

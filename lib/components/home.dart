@@ -4,6 +4,9 @@ import 'package:flutternews/models/category_model.dart';
 import 'package:flutternews/data/data.dart';
 import 'package:flutternews/models/article_model.dart';
 import 'package:flutternews/data/news.dart';
+import 'package:flutternews/components/article.dart';
+import 'package:flutternews/components/category_news.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -40,8 +43,9 @@ class _HomeState extends State<Home> {
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const <Widget>[
-                Text("Flutter"),
-                Text("News", style: TextStyle(color: Colors.blue))
+                Text("Flutter", style: TextStyle(fontFamily: 'Poppins')),
+                Text("News",
+                    style: TextStyle(color: Colors.blue, fontFamily: 'Poppins'))
               ]),
           elevation: 0.0,
         ),
@@ -82,6 +86,7 @@ class _HomeState extends State<Home> {
                                 imageUrl: articles[index].imageUrl,
                                 title: articles[index].title,
                                 desc: articles[index].description,
+                                url: articles[index].url,
                               );
                             }))
                   ],
@@ -97,6 +102,13 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CategoryNews(
+                      category: categoryName.toString().toLowerCase())));
+        },
         child: Container(
             margin: const EdgeInsets.only(right: 16),
             child: Stack(children: <Widget>[
@@ -121,31 +133,45 @@ class CategoryCard extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
+                        fontFamily: 'Poppins',
                       )))
             ])));
   }
 }
 
 class BlogPost extends StatelessWidget {
-  final imageUrl, title, desc;
+  final imageUrl, title, desc, url;
   const BlogPost(
-      {@required this.imageUrl, @required this.title, @required this.desc});
+      {@required this.imageUrl,
+      @required this.title,
+      @required this.desc,
+      @required this.url});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        child: Column(children: <Widget>[
-          ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.network(imageUrl)),
-          const SizedBox(height: 8),
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 17,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w500)),
-          Text(desc, style: const TextStyle(color: Colors.black54)),
-        ]));
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ArticleView(articleUrl: url)));
+        },
+        child: Container(
+            margin: const EdgeInsets.only(bottom: 16),
+            child: Column(children: <Widget>[
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+                  child: Image.network(imageUrl)),
+              const SizedBox(height: 8),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 17,
+                      color: Colors.black87,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500)),
+              Text(desc,
+                  style: const TextStyle(
+                      color: Colors.black54, fontFamily: 'Montserrat')),
+            ])));
   }
 }
